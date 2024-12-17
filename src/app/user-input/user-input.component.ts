@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InvestmentInput } from '../investment-inut.model';
 
@@ -10,6 +10,9 @@ import { InvestmentInput } from '../investment-inut.model';
   styleUrl: './user-input.component.css'
 })
 export class UserInputComponent {
+
+  @ViewChild('form') private form?: ElementRef<HTMLFormElement>
+
   @Output() calculate = new EventEmitter<InvestmentInput>()
   enteredInitialInvestment = '0';
   enteredAnnualInvestment = '0';
@@ -23,5 +26,6 @@ export class UserInputComponent {
       expectedReturn: +this.enteredExpetationReturn,
       annualInvestment: +this.enteredAnnualInvestment,
     })
+    this.form?.nativeElement.reset();
   }
 }
